@@ -9,8 +9,6 @@ date: '2022-01-28'
 
 课程主页：http://dsg.csail.mit.edu/6.830/
 
-顺便把实验手册翻译了一遍，都在这个[仓库](https://github.com/weijiew/codestep)里面。
-
 # lab1
 
 > Tuple/HeapFile等基础设施
@@ -225,7 +223,6 @@ redo log 是用来对已提交的事务做恢复，undo log 是用来对未提�
 在 redo log 中记录当前每一步的操作，在 undo log 中记录回滚到上一步的操作。
 
 flushPage() 方法表示将页写入磁盘中，增加写入日志的操作，每当向磁盘中写入页面的时候需要将记录写入日志中。
-<<<<<<< HEAD
 
 日志格式：事务失败(ABORT), 事务提交(COMMIT), 写入脏页(UPDATE), 事务开始(BEGIN), 和检测点(CHECKPOINT)这些格式的日志都记录在同一个日志文件中；
 
@@ -233,15 +230,6 @@ flushPage() 方法表示将页写入磁盘中，增加写入日志的操作，�
 
 对于CHECKPOINT 记录，主要记录在checkpoint点活跃的事务数，以及每个事务的的事务id和第一条日志记录的偏移量。在此之前的日志是已经写入磁盘的，而在此之后的则是可能存在问题的，也就是只能持久到日志没有真正执行到磁盘的。因此崩溃的时候从 checkpoint 开始往后读，然后根据日志记录进行恢复。
 
-=======
-
-日志格式：事务失败(ABORT), 事务提交(COMMIT), 写入脏页(UPDATE), 事务开始(BEGIN), 和检测点(CHECKPOINT)这些格式的日志都记录在同一个日志文件中；
-
-其中 UPDATE 格式的记录，有两部分组成，即before image和after image，分别记录修改前和修改后的日志。回滚的时候会用到 before image ，事务提交成功但数据由于故障丢失数据我们会用到after image。
-
-对于CHECKPOINT 记录，主要记录在checkpoint点活跃的事务数，以及每个事务的的事务id和第一条日志记录的偏移量。在此之前的日志是已经写入磁盘的，而在此之后的则是可能存在问题的，也就是只能持久到日志没有真正执行到磁盘的。因此崩溃的时候从 checkpoint 开始往后读，然后根据日志记录进行恢复。
-
->>>>>>> 7bf52420e1b5ab0ec51771b1fb4b2870e2d352d9
 ## Exercise 1: LogFile.rollback()
 
 实现LogFile.java中的rollback()函数，rollback() 回滚指定事务，已经提交了的事务上不能执行该方法。将上一个版本的数据写回磁盘。
@@ -256,11 +244,7 @@ flushPage() 方法表示将页写入磁盘中，增加写入日志的操作，�
 
 实现 Implement LogFile.recover()。重启数据库时会率先调用 LogFile.recover() 
 
-<<<<<<< HEAD
 对于未提交的事务：使用before-image对其进行恢复，对于已提交的事务：使用after-image对其进行恢复。
 
 ![20220318134954](https://cdn.jsdelivr.net/gh/weijiew/pic/images/20220318134954.png)
 
-=======
-对于未提交的事务：使用before-image对其进行恢复，对于已提交的事务：使用after-image对其进行恢复。
->>>>>>> 7bf52420e1b5ab0ec51771b1fb4b2870e2d352d9
