@@ -100,4 +100,4 @@ Log File:
 
 参考 boltdb 的 B+ 树模块。
 
-> 此前是用 go 写的，时隔一年，这次用现代 C++ 重写了一遍，并发还不完善 ：https://github.com/jieway/abysskv 
+> 此前是用 go 写的，时隔一年，这次用现代 C++ 重写了一遍，并发还不完善 ：https://github.com/weijiew/abysskv 
